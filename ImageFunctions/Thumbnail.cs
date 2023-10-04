@@ -109,7 +109,8 @@ namespace ImageFunctions
                         //Image<Rgba32> image2;
                         using (MemoryStream output = new MemoryStream())
                         {
-                            using (Image<Rgba32> image = Image.Load(input))
+                            //using (Image<Rgba32> image = Image.Load(input))
+                            using (Image image = Image.Load(input))
                             {
                                 //image2 = image.Clone();
                                 try
