@@ -109,7 +109,7 @@ namespace ImageFunctions
                         //Image<Rgba32> image2;
                         using (MemoryStream output = new MemoryStream())
                         {
-                            using (Image image = Image.Load(input))
+                            using (Image<Rgba32> image = Image.Load(input))
                             {
                                 //image2 = image.Clone();
                                 try
@@ -156,24 +156,6 @@ namespace ImageFunctions
                 log.LogInformation(ex.Message);
                 throw;
             }
-        }
-
-        public static async Task saveImage(Stream input, int width, BlobClient bc, IImageEncoder encoder)
-        {
-            using (MemoryStream output = new MemoryStream())
-            using (Image image = Image.Load(input))
-            {
-                var divisor = image.Width / width;
-                var height = Convert.ToInt32(Math.Round((decimal)(image.Height / divisor)));
-
-                image.Mutate(x => x.Resize(width, height));
-                image.Save(output, encoder);
-                output.Position = 0;
-
-                //await blobContainerClient.UploadBlobAsync(blobName, output);
-                await bc.UploadAsync(output, true);
-            }
-
         }
     }
 }
